@@ -1,4 +1,4 @@
-# Abnormal Process Communication with Telegram IP
+# Network Connection - Abnormal Process Communication with Telegram IP
 
 ## Description
 This rule aims to identify potentially suspicious network communication between processes running on endpoints and IP addresses belonging to Telegram infrastructure. Telegram is a legitimate messaging platform, but its infrastructure and Bot API can also be abused by malware and other unauthorized tooling as a communication channel, allowing compromised systems to exchange information with attacker-controlled bots or services while blending into traffic associated with a widely used platform. The detection focuses on communication initiated by processes that are not expected Telegram clients or commonly used web browsers, increasing the likelihood of identifying custom applications, scripts, malware, or other unusual executables communicating directly with Telegram infrastructure. To determine whether an IP address belongs to Telegram, the rule uses the CIDR ranges officially provided by Telegram.
