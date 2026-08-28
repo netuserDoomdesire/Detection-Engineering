@@ -60,8 +60,8 @@ DeviceNetworkEvents
     or ipv6_is_in_any_range(RemoteIP, TelegramIPv6Ranges)
 // Exclude any missing browser file name along with its respective product name.
 // Telegram Desktop application is also excluded, since it is expected to communicate with Telegram IPs
-| where not (InitiatingProcessVersionInfoProductName in ("Firefox", "Google Chrome", "Brave Browser", "Opera Internet Browser", "Telegram Desktop")
-    and InitiatingProcessFileName in ("chrome.exe", "brave.exe", "firefox.exe", "opera.exe", "telegram.exe"))
+| where not (InitiatingProcessVersionInfoProductName in ("Microsoft Edge", "Firefox", "Google Chrome", "Brave Browser", "Opera Internet Browser", "Telegram Desktop")
+    and InitiatingProcessFileName in ("msedge.exe", "chrome.exe", "brave.exe", "firefox.exe", "opera.exe", "telegram.exe"))
 | summarize arg_min(Timestamp, *), RemoteUrls = make_set(RemoteUrl) by DeviceName, InitiatingProcessFileName
 | project-away RemoteUrl  //optional
 ```
@@ -78,3 +78,4 @@ DeviceNetworkEvents
 | Version | Date       | Comment                                      |
 | ------- |------------| ---------------------------------------------|
 | 1.0     | 18-08-2026 | Initial release                              |
+| 1.1     | 28-08-2026 | Added Microsoft Edge exception               |
