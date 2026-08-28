@@ -58,10 +58,13 @@ DeviceNetworkEvents
 | where isnotempty(InitiatingProcessFileName)
 | where ipv4_is_in_any_range(RemoteIP, TelegramIPv4Ranges)
     or ipv6_is_in_any_range(RemoteIP, TelegramIPv6Ranges)
-// Exclude any missing browser file name along with its respective product name.
+// Exclude any missing browser or noisy application
 // Telegram Desktop application is also excluded, since it is expected to communicate with Telegram IPs
-| where not (InitiatingProcessVersionInfoProductName in ("Microsoft Edge", "Firefox", "Google Chrome", "Brave Browser", "Opera Internet Browser", "Telegram Desktop")
-    and InitiatingProcessFileName in ("msedge.exe", "chrome.exe", "brave.exe", "firefox.exe", "opera.exe", "telegram.exe"))
+| where not (
+            InitiatingProcessFileName in ("msedgewebview2.exe", "msedge.exe", "chrome.exe", "opera.exe", "brave.exe")
+            and InitiatingProcessCommandLine has_all ("--type=utility", "--utility-sub-type=network.mojom.NetworkService")
+            )
+| where not (InitiatingProcessFileName in ("zsatunnel.exe", "firefox.exe", "telegram.exe"))
 | summarize arg_min(Timestamp, *), RemoteUrls = make_set(RemoteUrl) by DeviceName, InitiatingProcessFileName
 | project-away RemoteUrl  //optional
 ```
@@ -79,3 +82,4 @@ DeviceNetworkEvents
 | ------- |------------| ---------------------------------------------|
 | 1.0     | 18-08-2026 | Initial release                              |
 | 1.1     | 28-08-2026 | Added Microsoft Edge exception               |
+| 1.2     | 28-08-2026 | Changed exception logic for chromium browsers |
