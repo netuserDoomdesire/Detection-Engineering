@@ -3,6 +3,9 @@
 ## Description
 This rule aims to identify files downloaded from an external resource where the download URL or referrer URL uses a direct IPv4 address instead of a domain name. Direct IP-based file delivery may be used by threat actors to retrieve payloads, tools, scripts, or additional malware from attacker-controlled infrastructure while avoiding domain-based reputation controls. The detection focuses on publicly routable IP addresses, excludes configured trusted IP addresses and selected commonly benign file extensions, and uses file origin metadata recorded by Microsoft Defender for Endpoint. While a direct IP address does not inherently indicate malicious activity, downloads of executable, script, archive, or other potentially actionable file types from unfamiliar external IP addresses should be investigated, particularly when followed by file execution or additional suspicious endpoint activity.
 
+## Severity
+Medium
+
 ## Blind Spots
 
 - Whitelisted file extensions can lead to missed file downloads
