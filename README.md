@@ -1,4 +1,4 @@
-# Detection Engineering Queries
+# Detection Queries
 
 A personal collection of detection rules for various SIEM and EDR/XDR platforms. Content is derived from real-world attack techniques, threat intelligence, and hands-on testing. My goal is to provide adaptable detection logic that others can tune and apply to their own environments.
 
